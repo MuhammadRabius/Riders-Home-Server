@@ -36,7 +36,7 @@ async function run(){
 
 
 app.get('/', (req, res) => {
-  res.send('Hello I m form Backend')
+  res.send('Hello I m form Riders Home Backend Server')
 })
 
 app.listen(port, () => {
