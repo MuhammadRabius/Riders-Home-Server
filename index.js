@@ -48,7 +48,7 @@ async function run(){
               const parts = await cursor.toArray();
               res.send(parts);
         })
-      //  User Post and Get
+      //  User Put and Get
       app.put('/updateuser',async(req,res)=>{
               const user = req.body;
               const email=req.body.email;
@@ -61,10 +61,16 @@ async function run(){
               };
               const options = { upsert: true };
               const result = await userCollection.updateOne(filter, updateDoc, options);
-              console.log(result);
+              
               res.send(result);
               
         });
+
+        app.get('/update-user-info',async(req,res)=>{
+          const query ={};
+          const result = await userCollection.find(query).toArray();
+          res.send(result);
+        })
        
           
       
