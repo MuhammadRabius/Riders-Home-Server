@@ -19,6 +19,7 @@ async function run(){
             await client.connect();
             const partCollection = client.db('ridershome').collection('parts');
             const orderCollection = client.db('ridershome').collection('order');
+            const userCollection = client.db('ridershome').collection('user');
 
             app.get('/parts',async(req,res)=>{
               const query={}
@@ -47,7 +48,23 @@ async function run(){
               const parts = await cursor.toArray();
               res.send(parts);
         })
+      //  User Post and Get
+      app.put('/updateuser',async(req,res)=>{
+              const user = req.body;
+              const email=req.body.email;
+              console.log(email)
+               const filter = { email:email
+              };
 
+              const updateDoc = {
+                $set: user
+              };
+              const options = { upsert: true };
+              const result = await userCollection.updateOne(filter, updateDoc, options);
+              console.log(result);
+              res.send(result);
+              
+        });
        
           
       
