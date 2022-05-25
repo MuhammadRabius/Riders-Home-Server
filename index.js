@@ -1,5 +1,6 @@
 const express = require('express')
 const cors = require('cors');
+const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const app = express();
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
@@ -17,6 +18,7 @@ async function run(){
        try{
             await client.connect();
             const partCollection = client.db('ridershome').collection('parts');
+            const orderCollection = client.db('ridershome').collection('order');
 
             app.get('/parts',async(req,res)=>{
               const query={}
@@ -30,6 +32,19 @@ async function run(){
             const parts = await partCollection.findOne(query);
             res.send(parts);
        })
+      // Place a order:POST
+         app.post('/placeorder',async(req,res)=>{
+              const newOrder = req.body;
+              
+              const result = await orderCollection.insertOne(newOrder);
+              console.log(result);
+              res.send(result);
+              
+        });
+
+       
+          
+      
             
             
 }
