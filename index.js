@@ -83,9 +83,10 @@ async function run(){
               
         });
 
-        app.get('/update-user-info',async(req,res)=>{
-          const query ={};
-          const result = await userCollection.find(query).toArray();
+        app.get('/update-user-info/:email',async(req,res)=>{
+          const email=req.params.email;
+          const query ={email:email};
+          const result = await userCollection.findOne(query);
           res.send(result);
         })
        
