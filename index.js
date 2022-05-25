@@ -20,6 +20,7 @@ async function run(){
             const partCollection = client.db('ridershome').collection('parts');
             const orderCollection = client.db('ridershome').collection('order');
             const userCollection = client.db('ridershome').collection('user');
+            const reviewCollection = client.db('ridershome').collection('review');
 
             app.get('/parts',async(req,res)=>{
               const query={}
@@ -72,6 +73,21 @@ async function run(){
           res.send(result);
         })
        
+        // review post and get 
+        app.post('/addreview',async(req,res)=>{
+              const addReview = req.body;
+              const result = await reviewCollection.insertOne(addReview);
+              
+              res.send(result);
+              
+        });
+        app.get('/review',async(req,res)=>{
+              const query ={};
+              const result = await (await reviewCollection.find(query).toArray())
+              const reverseResult = result.reverse();
+              res.send(reverseResult);
+              
+        });
           
       
             
