@@ -35,12 +35,18 @@ async function run(){
       // Place a order:POST
          app.post('/placeorder',async(req,res)=>{
               const newOrder = req.body;
-              
               const result = await orderCollection.insertOne(newOrder);
               console.log(result);
               res.send(result);
               
         });
+        app.get('/userorder',async(req,res)=>{
+              const email=req.query.email;
+              const query={email};
+              const cursor= orderCollection.find(query);
+              const parts = await cursor.toArray();
+              res.send(parts);
+        })
 
        
           
