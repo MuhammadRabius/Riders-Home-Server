@@ -94,6 +94,14 @@ async function run(){
               const parts = await cursor.toArray();
               res.send(parts);
         })
+
+        app.delete('/cancel-order/:id', async (req, res) => {
+            const itemId = req.params.id;
+            const query = { _id: ObjectId(itemId) };
+            const result = await orderCollection.deleteOne(query);
+            res.send(result);
+              
+            });
       //  User Put and Get
       app.put('/updateuser',async(req,res)=>{
               const user = req.body;
