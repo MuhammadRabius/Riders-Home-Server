@@ -50,12 +50,21 @@ async function run(){
         }
 
 
-            app.get('/parts',async(req,res)=>{
+          app.get('/parts',async(req,res)=>{
               const query={}
               const result = await partCollection.find(query).toArray();
-              res.send(result);
+              const reverse= result.reverse();
+              console.log(reverse);
+              res.send(reverse);
               
             })
+          app.post('/parts',async(req,res)=>{
+              const newItem = req.body;
+              const result = await partCollection.insertOne(newItem);
+              res.send(result);
+              
+            });
+
             app.get('/parts/:partsId', async (req, res) => {
             const partsId = req.params.partsId;
             const query = {_id:ObjectId(partsId) };
