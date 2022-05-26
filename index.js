@@ -229,6 +229,11 @@ async function run(){
       const result = await paymentCollection.insertOne(payment);
       const updatedOrder = await orderCollection.updateOne(filter, updatedDoc);
       res.send(updatedOrder);
+
+      app.get('/get-payment', async (req, res) => {
+        const paymentInfo = await paymentCollection.find().toArray();
+        res.send(paymentInfo);
+      });
     })
 // update parts
     app.put('/updateparts/:partsName', async (req, res) => {
