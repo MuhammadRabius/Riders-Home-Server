@@ -65,6 +65,15 @@ async function run(){
               
             });
 
+          app.delete('/parts/:email',async(req,res)=>{
+              const email = req.params.email;
+              console.log(email)
+              const filter = { email: email };
+              const result = await partCollection.deleteOne(filter);
+              res.send(result);
+              
+            });
+
             app.get('/parts/:partsId', async (req, res) => {
             const partsId = req.params.partsId;
             const query = {_id:ObjectId(partsId) };
