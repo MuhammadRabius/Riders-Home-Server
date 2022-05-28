@@ -238,20 +238,17 @@ async function run(){
         res.send(paymentInfo);
       });
 // update parts
-    app.put('/update-states-parts', async (req, res) => {
+    app.put('/update-states-parts/:id', async (req, res) => {
       const id = req.params.id;
-      const partsId =req.body.id
-      const filter = { _id: ObjectId(id) };
-      const partsFilter = { _id: ObjectId(partsId) };
+      console.log(id)
+      const states =req.body.states;
+      const filter = { _id: ObjectId(id)};
       const updateDoc = {
-       $inc: 
-
-          { states:true,
-            } 
+        $set: { states: states },
       };
-      const orderUpdate = await orderCollection.updateOne(filter, updateDoc);
-      const partUpdate = await partCollection.updateOne(partsFilter, updateDoc);
-      res.send(partUpdate);
+      const result = await paymentCollection.updateOne(filter, updateDoc)
+             
+      res.send(result);
     })
       
             
